@@ -3,6 +3,8 @@ package ar.edu.itba.ss.models;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 public class Vector {
     @Getter
     @Setter
@@ -22,5 +24,18 @@ public class Vector {
     @Override
     public String toString() {
         return "x: " + x + ", y: " + y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return Double.compare(vector.x, x) == 0 && Double.compare(vector.y, y) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
