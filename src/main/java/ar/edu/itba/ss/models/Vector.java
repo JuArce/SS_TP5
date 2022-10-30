@@ -21,6 +21,10 @@ public class Vector {
         return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
     }
 
+    public double angleTo(Vector other) {
+        return Math.atan2(other.y - this.y, other.x - this.x);
+    }
+
     @Override
     public String toString() {
         return "x: " + x + ", y: " + y;

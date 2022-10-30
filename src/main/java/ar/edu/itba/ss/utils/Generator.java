@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static ar.edu.itba.ss.utils.Random.getRandom;
+
 public class Generator {
 
     private static final String BASE_PATH = "src/main/resources/";
@@ -52,9 +54,5 @@ public class Generator {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private double getRandom(double min, double max) {
-        return ThreadLocalRandom.current().nextDouble(min, max);
     }
 }
