@@ -45,6 +45,6 @@ public class TransitioningBehavior implements Behavior {
 
     @Override
     public boolean isReached(Person me) {
-        return target.isReached();
+        return target.isReached(me);
     }
 }

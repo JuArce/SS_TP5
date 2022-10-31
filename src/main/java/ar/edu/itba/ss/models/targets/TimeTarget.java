@@ -1,6 +1,8 @@
 package ar.edu.itba.ss.models.targets;
 
 import ar.edu.itba.ss.interfaces.Target;
+import ar.edu.itba.ss.models.Person;
+import ar.edu.itba.ss.models.Velocity;
 import lombok.Getter;
 
 public class TimeTarget implements Target {
@@ -14,11 +16,17 @@ public class TimeTarget implements Target {
         this.counter = 0;
     }
 
+    @Override
+    public Velocity calculateVelocity(Person me) {
+        return new Velocity(0, 0);
+    }
+
     public void update(double dt) {
         counter += dt;
     }
 
-    public boolean isReached() {
+    @Override
+    public boolean isReached(Person me) {
         return target <= counter;
     }
 }

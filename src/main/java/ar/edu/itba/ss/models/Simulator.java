@@ -4,7 +4,6 @@ import ar.edu.itba.ss.interfaces.Exporter;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Simulator {
 
