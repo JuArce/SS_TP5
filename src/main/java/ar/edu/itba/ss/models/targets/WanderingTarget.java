@@ -3,6 +3,7 @@ package ar.edu.itba.ss.models.targets;
 import ar.edu.itba.ss.interfaces.Target;
 import ar.edu.itba.ss.models.Person;
 import ar.edu.itba.ss.models.Velocity;
+import ar.edu.itba.ss.models.Wall;
 
 import static ar.edu.itba.ss.utils.Random.getRandom;
 
@@ -14,6 +15,9 @@ public class WanderingTarget implements Target {
 
     @Override
     public Velocity calculateVelocity(Person me) {
+        if (Wall.isColliding(me)) {
+            return Wall.calculateVelocity(me);
+        }
         final double angle;
         double delta = ++wanderingTime == wanderingTimeLimit ? getRandom(- Math.PI / 4, Math.PI / 4) : 0;
         angle = me.getVelocity().getAngle() + delta;

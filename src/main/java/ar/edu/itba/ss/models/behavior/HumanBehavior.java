@@ -1,10 +1,7 @@
 package ar.edu.itba.ss.models.behavior;
 
 import ar.edu.itba.ss.interfaces.Behavior;
-import ar.edu.itba.ss.models.Person;
-import ar.edu.itba.ss.models.PersonState;
-import ar.edu.itba.ss.models.Vector;
-import ar.edu.itba.ss.models.Velocity;
+import ar.edu.itba.ss.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +16,9 @@ public class HumanBehavior implements Behavior {
 
     @Override
     public Velocity calculateVelocity(List<Person> entities) {
+        if (Wall.isColliding(me)) {
+            return Wall.calculateVelocity(me);
+        }
         final List<Person> zombies = entities.stream().filter(p -> p.getState() == PersonState.ZOMBIE).toList();
         final List<Vector> directions = new ArrayList<>();
         zombies.forEach(z -> {
