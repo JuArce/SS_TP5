@@ -7,11 +7,7 @@ import java.util.List;
 
 public interface Behavior {
 
-    void calculateTarget(Person me, List<Person> entities);
+    Velocity calculateVelocity(List<Person> entities);
 
-    Velocity calculateVelocity(Person me);
-
-    void elude();
-
-    boolean isReached(Person me);
+    boolean isReached();
 }

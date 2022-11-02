@@ -13,13 +13,17 @@ import java.util.List;
 
 public class ZombieBehavior implements Behavior {
 
-    private static final double DOV = 4;
+    private static final double DOV = 0.1;
 
+    private final Person me;
     @Getter
     private Target target;
 
-    @Override
-    public void calculateTarget(Person me, List<Person> entities) {
+    public ZombieBehavior(Person me) {
+        this.me = me;
+    }
+
+    private void calculateTarget(List<Person> entities) {
         final Target t = entities.stream()
                 .filter(person -> person.getState() == PersonState.HUMAN)
                 .min((person1, person2) -> {
@@ -39,17 +43,13 @@ public class ZombieBehavior implements Behavior {
     }
 
     @Override
-    public Velocity calculateVelocity(Person me) {
+    public Velocity calculateVelocity(List<Person> entities) {
+        calculateTarget(entities.stream().filter(person -> person.getState() == PersonState.HUMAN).toList());
         return target.calculateVelocity(me);
     }
 
     @Override
-    public void elude() {
-
-    }
-
-    @Override
-    public boolean isReached(Person me) {
+    public boolean isReached() {
         return target.isReached(me);
     }
 }

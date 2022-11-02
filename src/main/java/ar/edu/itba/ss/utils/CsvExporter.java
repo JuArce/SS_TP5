@@ -34,7 +34,7 @@ public class CsvExporter implements Exporter {
 
     @Override
     public void export(Simulator simulator) {
-        List<Person> people = simulator.getPeople();
+        List<Person> people = simulator.getEntities();
         try {
             csvWriterAppender.writeNext(new String[]{people.size() + ""});
             csvWriterAppender.writeNext(new String[]{"x", "y", "mod", "angle"});

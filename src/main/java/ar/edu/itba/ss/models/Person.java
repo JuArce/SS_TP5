@@ -34,22 +34,25 @@ public class Person implements Movable {
         this.velocity = velocity;
         this.state = state;
         try {
-            this.behavior = state.getBehaviorClass().getConstructor().newInstance();
+            this.behavior = state.getBehaviorClass().getConstructor(Person.class).newInstance(this);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         this.radius = radius;
     }
 
+    public void calculateVelocity(List<Person> entities) {
+        final Velocity v = behavior.calculateVelocity(entities);
+        if (v != null) {
+            this.velocity.setModule(v.getModule());
+            this.velocity.setAngle(v.getAngle());
+        }
+    }
+
     @Override
     public void move(double dt) {
-        final Velocity v = behavior.calculateVelocity(this);
-        this.velocity.setModule(v.getModule());
-        this.velocity.setAngle(v.getAngle());
-
         this.position.setX(position.getX() + velocity.getVelocityX() * dt);
         this.position.setY(position.getY() + velocity.getVelocityY() * dt);
-
     }
 
     public double distanceTo(Person person) {
@@ -60,7 +63,4 @@ public class Person implements Movable {
         return position.angleTo(person.getPosition());
     }
 
-    public void calculateTarget(List<Person> people) {
-        behavior.calculateTarget(this, people);
-    }
 }

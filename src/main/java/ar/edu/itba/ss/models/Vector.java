@@ -3,6 +3,7 @@ package ar.edu.itba.ss.models;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Vector {
@@ -17,12 +18,47 @@ public class Vector {
         this.y = y;
     }
 
+    public double getAngle() {
+        return Math.atan2(y, x);
+    }
+
     public double distanceTo(Vector other) {
         return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
     }
 
     public double angleTo(Vector other) {
         return Math.atan2(other.y - this.y, other.x - this.x);
+    }
+
+    public Vector directionTo(Vector other) {
+        final double x = other.x - this.x;
+        final double y = other.y - this.y;
+        return new Vector(x, y).normalize();
+    }
+
+    public Vector rotate(double angle) {
+        final double x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
+        final double y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public Vector normalize() {
+        final double module = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        this.x /= module;
+        this.y /= module;
+        return this;
+    }
+
+    public static Vector sum(List<Vector> vectors) {
+        double x = 0;
+        double y = 0;
+        for (Vector v : vectors) {
+            x += v.x;
+            y += v.y;
+        }
+        return new Vector(x, y);
     }
 
     @Override

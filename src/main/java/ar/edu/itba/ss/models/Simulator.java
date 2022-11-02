@@ -8,15 +8,15 @@ import java.util.List;
 public class Simulator {
 
     @Getter
-    private final List<Person> people;
+    private final List<Person> entities;
     private final int iterations;
     private final double dt;
     private final double beta;
     private final double tau;
     private final Exporter exporter;
 
-    public Simulator(List<Person> people, double dt, double beta, double tau, Exporter exporter) {
-        this.people = people;
+    public Simulator(List<Person> entities, double dt, double beta, double tau, Exporter exporter) {
+        this.entities = entities;
         this.iterations = 1000;
         this.dt = dt;
         this.beta = beta;
@@ -29,10 +29,9 @@ public class Simulator {
         // CUANDO ES QUE UN ZOMBIE SE LO "COME" ES QUE LLEGA JUSTO A LA POSICION DEL OTRO? O ES QUE SE LO COME CUANDO ESTA CERCA?
         boolean flag = true;
         for (int i = 0; i < iterations && flag; i++) {
-            List<Person> zombies = people.stream().filter(p -> p.getState() == PersonState.ZOMBIE).toList();
-            zombies.forEach(z -> z.calculateTarget(people.stream().filter(p -> p.getState() == PersonState.HUMAN).toList()));
-            zombies.forEach(z->z.move(dt));
-            flag = zombies.stream().noneMatch(z -> z.getBehavior().isReached(z));
+            entities.forEach(e -> e.calculateVelocity(entities));
+            entities.forEach(e -> e.move(dt));
+            flag = entities.stream().filter(p -> p.getState() == PersonState.ZOMBIE).noneMatch(z -> z.getBehavior().isReached());
             exporter.export(this);
         }
     }
