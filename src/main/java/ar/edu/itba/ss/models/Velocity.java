@@ -26,6 +26,10 @@ public class Velocity {
         return module * Math.sin(angle);
     }
 
+    public Vector toVector() {
+        return new Vector(getVelocityX(), getVelocityY());
+    }
+
     @Override
     public String toString() {
         return "module: " + module + ", angle: " + angle;

@@ -15,6 +15,8 @@ public class Simulator {
     private final double tau;
     private final Exporter exporter;
 
+    public static double DELTA_R;
+
     public Simulator(List<Person> entities, double dt, double beta, double tau, Exporter exporter) {
         this.entities = entities;
         this.iterations = 1000;
@@ -22,6 +24,7 @@ public class Simulator {
         this.beta = beta;
         this.tau = tau;
         this.exporter = exporter;
+        DELTA_R = Person.MAX_RADIUS / (tau / dt);
     }
 
     public void simulate() {
@@ -29,10 +32,10 @@ public class Simulator {
         // CUANDO ES QUE UN ZOMBIE SE LO "COME" ES QUE LLEGA JUSTO A LA POSICION DEL OTRO? O ES QUE SE LO COME CUANDO ESTA CERCA?
         boolean flag = true;
         for (int i = 0; i < iterations && flag; i++) {
+            exporter.export(this);
             entities.forEach(e -> e.calculateVelocity(entities));
             entities.forEach(e -> e.move(dt));
             flag = entities.stream().filter(p -> p.getState() == PersonState.ZOMBIE).noneMatch(z -> z.getBehavior().isReached());
-            exporter.export(this);
         }
     }
 

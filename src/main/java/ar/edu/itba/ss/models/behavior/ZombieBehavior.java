@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ZombieBehavior implements Behavior {
 
-    private static final double DOV = 0.1;
+    private static final double DOV = 0.1; //Distance of vision
 
     private final Person me;
     @Getter
