@@ -23,7 +23,8 @@ public class HumanBehavior implements Behavior {
     public Velocity calculateVelocity(List<Person> entities) {
         final List<Vector> escapeVectors = new ArrayList<>();
         if (Wall.isColliding(me)) {
-            escapeVectors.add(Wall.calculateVelocity(me).toVector());
+//            escapeVectors.add(Wall.calculateVelocity(me).toVector());
+            return new Velocity(MAX_SPEED, Wall.calculateVelocity(me).toVector().getAngle());
         }
         for (Person person : entities) {
             if (person == me) {
@@ -31,7 +32,7 @@ public class HumanBehavior implements Behavior {
             }
             if (me.distanceTo(person) <= me.getRadius() + person.getRadius()) {
                 Vector direction = me.getPosition().directionTo(person.getPosition()).rotate(Math.PI);
-                Vector escapeVector = Vector.sum(List.of(direction, me.getPosition())).normalize();
+                Vector escapeVector = Vector.sum(List.of(direction, me.getPosition()));
                 escapeVectors.add(escapeVector);
             }
         }
@@ -54,7 +55,7 @@ public class HumanBehavior implements Behavior {
             directions.add(me.getPosition().directionTo(z.getPosition()));
         });
         directions.forEach(v -> v.rotate(Math.PI));
-        final Vector direction = Vector.sum(directions).normalize();
+        final Vector direction = Vector.sum(directions);
         final double speed = MAX_SPEED * Math.pow((me.getRadius() - Person.MIN_RADIUS)/(Person.MAX_RADIUS - Person.MIN_RADIUS), BETA);
         return new Velocity(speed, direction.getAngle());
     }
