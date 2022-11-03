@@ -30,7 +30,9 @@ public class HumanBehavior implements Behavior {
                 continue;
             }
             if (me.distanceTo(person) <= me.getRadius() + person.getRadius()) {
-                escapeVectors.add(me.getPosition().directionTo(person.getPosition().rotate(Math.PI)));
+                Vector direction = me.getPosition().directionTo(person.getPosition()).rotate(Math.PI);
+                Vector escapeVector = Vector.sum(List.of(direction, me.getPosition())).normalize();
+                escapeVectors.add(escapeVector);
             }
         }
         if (!escapeVectors.isEmpty()) {
