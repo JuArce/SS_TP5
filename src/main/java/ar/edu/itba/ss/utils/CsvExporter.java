@@ -37,14 +37,15 @@ public class CsvExporter implements Exporter {
         List<Person> people = simulator.getEntities();
         try {
             csvWriterAppender.writeNext(new String[]{people.size() + ""});
-            csvWriterAppender.writeNext(new String[]{"x", "y", "mod", "angle"});
+            csvWriterAppender.writeNext(new String[]{"x", "y", "mod", "angle", "state"});
             for (Person person : people) {
                 csvWriterAppender.writeNext(new String[]{
                         person.getRadius() + "",
                         person.getPosition().getX() + "",
                         person.getPosition().getY() + "",
                         person.getVelocity().getModule() + "",
-                        person.getVelocity().getAngle() + ""
+                        person.getVelocity().getAngle() + "",
+                        person.getState().toString()
                 });
             }
         } catch (Exception e) {
