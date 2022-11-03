@@ -24,6 +24,9 @@ public class App {
         final double beta = 0.9;
         final double tau = 0.5;
 
+
+        System.out.println("dt: " + dt);
+
         Exporter exporter = new CsvExporter("", "output.csv");
         exporter.open();
 

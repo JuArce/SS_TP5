@@ -10,4 +10,6 @@ public interface Behavior {
     Velocity calculateVelocity(List<Person> entities);
 
     boolean isReached();
+
+    void execute();
 }

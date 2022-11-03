@@ -29,4 +29,9 @@ public class WanderingTarget implements Target {
     public boolean isReached(Person me) {
         return false;
     }
+
+    @Override
+    public void execute(Person me) {
+        // Nothing to do
+    }
 }

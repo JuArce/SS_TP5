@@ -1,6 +1,7 @@
 package ar.edu.itba.ss.models.behavior;
 
 import ar.edu.itba.ss.interfaces.Behavior;
+import ar.edu.itba.ss.interfaces.Target;
 import ar.edu.itba.ss.models.*;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class HumanBehavior implements Behavior {
         me.setRadius(min(me.getRadius() + Simulator.DELTA_R, Person.MAX_RADIUS));
 
         final List<Person> zombies = entities.stream()
-                .filter(p -> p.getState() == PersonState.ZOMBIE)
+                .filter(p -> p.getState() == PersonState.ZOMBIE || p.getState() == PersonState.TRANSITIONING)
                 .filter(p -> me.distanceTo(p) <= 4)
                 .toList();
         if (zombies.isEmpty()) {
@@ -63,5 +64,10 @@ public class HumanBehavior implements Behavior {
     @Override
     public boolean isReached() {
         return false;
+    }
+
+    @Override
+    public void execute() {
+        //nothing to do
     }
 }

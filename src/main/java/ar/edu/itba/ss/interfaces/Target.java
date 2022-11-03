@@ -9,4 +9,6 @@ public interface Target {
 
     boolean isReached(Person me);
 
+    void execute(Person me);
+
 }

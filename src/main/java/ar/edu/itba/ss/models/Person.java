@@ -41,6 +41,16 @@ public class Person implements Movable {
         this.radius = radius;
     }
 
+
+    public void setState(PersonState state) {
+        this.state = state;
+        try {
+            this.behavior = state.getBehaviorClass().getConstructor(Person.class).newInstance(this);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void calculateVelocity(List<Person> entities) {
         final Velocity v = behavior.calculateVelocity(entities);
         if (v != null) {
@@ -62,5 +72,10 @@ public class Person implements Movable {
     public double angleTo(Person person) {
         return position.angleTo(person.getPosition());
     }
+
+    public void execute(){
+        behavior.execute();
+    }
+
 
 }

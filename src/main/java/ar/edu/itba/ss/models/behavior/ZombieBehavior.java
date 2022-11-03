@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ZombieBehavior implements Behavior {
 
-    private static final double DOV = 0.1; //Distance of vision
+    private static final double DOV = 4; //Distance of vision
 
     private final Person me;
     @Getter
@@ -51,5 +51,10 @@ public class ZombieBehavior implements Behavior {
     @Override
     public boolean isReached() {
         return target.isReached(me);
+    }
+
+    @Override
+    public void execute() {
+        target.execute(me);
     }
 }
