@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class GeneratorApp {
     public static void main(String[] args) {
-        Generator generator = new Generator(1, 11, 20000);
+        Generator generator = new Generator(1, 11, 200);
         List<Vector> positions = generator.generate("positions.txt");
         System.out.println("Positions generated");
     }
