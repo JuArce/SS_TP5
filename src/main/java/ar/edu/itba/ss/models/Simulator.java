@@ -20,7 +20,7 @@ public class Simulator {
 
     public Simulator(List<Person> entities, double dt, double beta, double tau, Exporter exporter) {
         this.entities = entities;
-        this.iterations = 500;
+        this.iterations = 10000;
         this.dt = dt;
         this.beta = beta;
         this.tau = tau;
