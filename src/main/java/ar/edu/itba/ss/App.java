@@ -16,7 +16,7 @@ public class App {
 
     public static void main(String[] args) {
         final List<Vector> positions = PositionReader.readPositions("src/main/resources/positions.txt");
-        final List<Person> entities = positions.stream().map(p -> new Person(p, new Velocity(VD_MAX, 0), PersonState.HUMAN, MAX_RADIUS)).collect(Collectors.toList());
+        final List<Person> entities = positions.stream().map(p -> new Person(p, new Velocity(VD_MAX, getRandom(0, 2 * Math.PI)), PersonState.HUMAN, MAX_RADIUS)).collect(Collectors.toList());
         entities.add(new Person(new Vector(0, 0), new Velocity(0.3, getRandom(0, 2 * Math.PI)), PersonState.ZOMBIE,  MAX_RADIUS));
 
         final double vdMax = VD_MAX;
