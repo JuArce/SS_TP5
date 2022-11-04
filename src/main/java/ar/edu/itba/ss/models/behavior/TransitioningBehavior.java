@@ -1,12 +1,9 @@
 package ar.edu.itba.ss.models.behavior;
 
 import ar.edu.itba.ss.interfaces.Behavior;
-import ar.edu.itba.ss.interfaces.Target;
 import ar.edu.itba.ss.models.Person;
 import ar.edu.itba.ss.models.PersonState;
-import ar.edu.itba.ss.models.Simulator;
 import ar.edu.itba.ss.models.Velocity;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -48,7 +45,7 @@ public class TransitioningBehavior implements Behavior {
         update();
         if (isReached()) {
             counter = 0;
-            me.setState(PersonState.ZOMBIE);
+            me.changeState(PersonState.ZOMBIE);
         }
     }
 }

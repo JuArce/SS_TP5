@@ -21,6 +21,7 @@ public class ZombieBehavior implements Behavior {
 
     public ZombieBehavior(Person me) {
         this.me = me;
+        this.target = new WanderingTarget();
     }
 
     private void calculateTarget(List<Person> entities) {

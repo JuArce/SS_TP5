@@ -16,7 +16,9 @@ public class WanderingTarget implements Target {
     @Override
     public Velocity calculateVelocity(Person me) {
         if (Wall.isColliding(me)) {
-            return Wall.calculateVelocity(me);
+            Velocity velocity = Wall.calculateVelocity(me);
+            velocity.setModule(V_WANDER);
+            return velocity;
         }
         final double angle;
         double delta = ++wanderingTime == wanderingTimeLimit ? getRandom(- Math.PI / 4, Math.PI / 4) : 0;

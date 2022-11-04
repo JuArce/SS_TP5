@@ -21,7 +21,7 @@ public class HumanTarget implements Target {
 
     @Override
     public Velocity calculateVelocity(Person me) {
-        return new Velocity(VD_MAX, me.angleTo(target));
+        return new Velocity(VD_MAX, me.getPosition().directionTo(target.getPosition()).getAngle());
     }
 
     @Override
@@ -33,10 +33,10 @@ public class HumanTarget implements Target {
     public void execute(Person me) {
         if(isReached(me)) {
             if (target.getState() == PersonState.HUMAN) {
-                target.setState(PersonState.TRANSITIONING);
+                target.changeState(PersonState.TRANSITIONING);
             }
             if (me.getState() == PersonState.ZOMBIE) {
-                me.setState(PersonState.TRANSITIONING);
+                me.changeState(PersonState.TRANSITIONING);
             }
         }
     }

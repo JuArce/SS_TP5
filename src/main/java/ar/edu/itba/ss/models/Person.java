@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import static ar.edu.itba.ss.utils.Constants.MAX_RADIUS;
+
 public class Person implements Movable {
 
     @Getter
@@ -42,8 +44,9 @@ public class Person implements Movable {
     }
 
 
-    public void setState(PersonState state) {
+    public void changeState(PersonState state) {
         this.state = state;
+        this.radius = MAX_RADIUS;
         try {
             this.behavior = state.getBehaviorClass().getConstructor(Person.class).newInstance(this);
         } catch (Exception e) {
