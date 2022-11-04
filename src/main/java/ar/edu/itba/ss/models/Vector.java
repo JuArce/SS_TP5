@@ -18,6 +18,10 @@ public class Vector {
         this.y = y;
     }
 
+    private double getModule() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+
     public double getAngle() {
         return Math.atan2(y, x);
     }
@@ -27,7 +31,7 @@ public class Vector {
     }
 
     public double angleTo(Vector other) {
-        return Math.atan2(other.y - this.y, other.x - this.x);
+        return Math.acos(this.dotProduct(other) / (this.getModule() * other.getModule()));
     }
 
     public Vector directionTo(Vector other) {
@@ -49,6 +53,10 @@ public class Vector {
         this.x /= module;
         this.y /= module;
         return this;
+    }
+
+    private double dotProduct(Vector other) {
+        return this.x * other.x + this.y * other.y;
     }
 
     public static Vector sum(List<Vector> vectors) {

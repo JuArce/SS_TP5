@@ -25,6 +25,9 @@ public class Person implements Movable {
     @Getter
     @Setter
     private double radius;
+    @Getter
+    @Setter
+    private double nextRadius;
 
     public Person(Vector position, Velocity velocity, PersonState state, double radius) {
         this.position = position;

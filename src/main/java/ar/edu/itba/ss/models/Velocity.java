@@ -32,6 +32,6 @@ public class Velocity {
 
     @Override
     public String toString() {
-        return "module: " + module + ", angle: " + angle;
+        return "module: " + module + ", angle: " + angle + "(" + angle * 180 / Math.PI + "°)";
     }
 }

@@ -1,53 +1,44 @@
 package ar.edu.itba.ss.models.behavior;
 
-import ar.edu.itba.ss.interfaces.Behavior;
-import ar.edu.itba.ss.interfaces.Target;
 import ar.edu.itba.ss.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static ar.edu.itba.ss.utils.Constants.*;
+import static ar.edu.itba.ss.utils.Random.getRandom;
 import static java.lang.Math.min;
 
-public class HumanBehavior implements Behavior {
-
-    private final Person me;
+public class HumanBehavior extends PersonBehavior {
 
     public HumanBehavior(Person me) {
-        this.me = me;
+        super(me);
     }
 
     @Override
     public Velocity calculateVelocity(List<Person> entities) {
-        final List<Vector> escapeVectors = new ArrayList<>();
-        if (Wall.isColliding(me)) {
-//            escapeVectors.add(Wall.calculateVelocity(me).toVector());
-            return new Velocity(VD_MAX, Wall.calculateVelocity(me).toVector().getAngle());
+        Velocity velocity;
+        if ((velocity = calculateWallCollisionVelocity()) != null) {
+            return velocity;
         }
-        for (Person person : entities) {
-            if (person == me) {
-                continue;
-            }
-            if (me.distanceTo(person) <= me.getRadius() + person.getRadius()) {
-                Vector direction = me.getPosition().directionTo(person.getPosition()).rotate(Math.PI);
-//                Vector escapeVector = Vector.sum(List.of(direction, me.getPosition()));
-                escapeVectors.add(direction);
-            }
+        if ((velocity = calculatePersonCollisionVelocity(entities)) != null) {
+            me.setNextRadius(MIN_RADIUS);
+            return velocity;
         }
-        if (!escapeVectors.isEmpty()) {
-            me.setRadius(MIN_RADIUS);
-            final Vector escapeVector = Vector.sum(escapeVectors);
-            return new Velocity(VD_MAX, escapeVector.getAngle());
-        }
-        me.setRadius(min(me.getRadius() + Simulator.DELTA_R, MAX_RADIUS));
+        me.setNextRadius(min(me.getRadius() + Simulator.DELTA_R, MAX_RADIUS));
 
+        velocity = calculateEscapeVelocity(entities);
+        velocity = correctVelocity(velocity, entities);
+        return velocity;
+    }
+
+    private Velocity calculateEscapeVelocity(List<Person> entities) {
         final List<Person> zombies = entities.stream()
                 .filter(p -> p.getState() == PersonState.ZOMBIE || p.getState() == PersonState.TRANSITIONING)
                 .filter(p -> me.distanceTo(p) <= 4)
                 .toList();
-        if (zombies.isEmpty()) {
-            return new Velocity(0, 0);
+        if (zombies.isEmpty()) { // Wandering
+            return calculateWanderVelocity();
         }
         final List<Vector> directions = new ArrayList<>();
         zombies.forEach(z -> {
@@ -66,6 +57,6 @@ public class HumanBehavior implements Behavior {
 
     @Override
     public void execute() {
-        //nothing to do
+        me.setRadius(me.getNextRadius());
     }
 }
