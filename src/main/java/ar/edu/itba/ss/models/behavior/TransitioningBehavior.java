@@ -10,6 +10,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import static ar.edu.itba.ss.utils.Constants.DT;
+
 public class TransitioningBehavior implements Behavior {
 
     public static final double DEFAULT_TRANSITION_TIME = 7;
@@ -24,7 +26,7 @@ public class TransitioningBehavior implements Behavior {
     public TransitioningBehavior(Person me) {
         this.counter = 0;
         this.me = me;
-        this.dt = Simulator.dt;
+        this.dt = DT;
     }
 
     @Override

@@ -7,9 +7,9 @@ import ar.edu.itba.ss.models.Velocity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class HumanTarget implements Target {
+import static ar.edu.itba.ss.utils.Constants.VD_MAX;
 
-    private static final double ACTIVE_SPEED = 4;
+public class HumanTarget implements Target {
 
     @Getter
     @Setter
@@ -21,7 +21,7 @@ public class HumanTarget implements Target {
 
     @Override
     public Velocity calculateVelocity(Person me) {
-        return new Velocity(ACTIVE_SPEED, me.angleTo(target));
+        return new Velocity(VD_MAX, me.angleTo(target));
     }
 
     @Override

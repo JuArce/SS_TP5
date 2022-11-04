@@ -5,13 +5,13 @@ import ar.edu.itba.ss.models.Person;
 import ar.edu.itba.ss.models.Velocity;
 import ar.edu.itba.ss.models.Wall;
 
+import static ar.edu.itba.ss.utils.Constants.V_WANDER;
 import static ar.edu.itba.ss.utils.Random.getRandom;
 
 public class WanderingTarget implements Target {
 
-    private static final double WANDERING_SPEED = 0.3;
     private int wanderingTime = 0;
-    private int wanderingTimeLimit = 15;
+    private final int wanderingTimeLimit = 15;
 
     @Override
     public Velocity calculateVelocity(Person me) {
@@ -22,7 +22,7 @@ public class WanderingTarget implements Target {
         double delta = ++wanderingTime == wanderingTimeLimit ? getRandom(- Math.PI / 4, Math.PI / 4) : 0;
         angle = me.getVelocity().getAngle() + delta;
         wanderingTime %= wanderingTimeLimit;
-        return new Velocity(WANDERING_SPEED, angle);
+        return new Velocity(V_WANDER, angle);
     }
 
     @Override

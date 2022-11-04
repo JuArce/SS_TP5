@@ -11,9 +11,9 @@ import lombok.Getter;
 
 import java.util.List;
 
-public class ZombieBehavior implements Behavior {
+import static ar.edu.itba.ss.utils.Constants.DOV;
 
-    private static final double DOV = 4; //Distance of vision
+public class ZombieBehavior implements Behavior {
 
     private final Person me;
     @Getter

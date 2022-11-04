@@ -26,9 +26,6 @@ public class Person implements Movable {
     @Setter
     private double radius;
 
-    public final static double MAX_RADIUS = 0.32;
-    public final static double MIN_RADIUS = 0.15;
-
     public Person(Vector position, Velocity velocity, PersonState state, double radius) {
         this.position = position;
         this.velocity = velocity;

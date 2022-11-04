@@ -9,20 +9,21 @@ import ar.edu.itba.ss.utils.PositionReader;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ar.edu.itba.ss.utils.Constants.*;
 import static ar.edu.itba.ss.utils.Random.getRandom;
 
 public class App {
 
     public static void main(String[] args) {
         final List<Vector> positions = PositionReader.readPositions("src/main/resources/positions.txt");
-        final List<Person> entities = positions.stream().map(p -> new Person(p, new Velocity(HumanBehavior.MAX_SPEED, 0), PersonState.HUMAN, Person.MAX_RADIUS)).collect(Collectors.toList());
-        entities.add(new Person(new Vector(0, 0), new Velocity(0.3, getRandom(0, 2 * Math.PI)), PersonState.ZOMBIE, Person.MAX_RADIUS));
+        final List<Person> entities = positions.stream().map(p -> new Person(p, new Velocity(VD_MAX, 0), PersonState.HUMAN, MAX_RADIUS)).collect(Collectors.toList());
+        entities.add(new Person(new Vector(0, 0), new Velocity(0.3, getRandom(0, 2 * Math.PI)), PersonState.ZOMBIE,  MAX_RADIUS));
 
-        final double vdMax = 1.55;
-        final double ve = vdMax;
-        final double dt = Person.MIN_RADIUS / 2 * Math.max(ve, vdMax);
-        final double beta = 0.9;
-        final double tau = 0.5;
+        final double vdMax = VD_MAX;
+        final double ve = VE;
+        final double dt = DT;
+        final double beta = BETA;
+        final double tau = TAU;
 
 
         System.out.println("dt: " + dt);

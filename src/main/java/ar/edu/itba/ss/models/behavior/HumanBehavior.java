@@ -7,12 +7,10 @@ import ar.edu.itba.ss.models.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ar.edu.itba.ss.utils.Constants.BETA;
+import static ar.edu.itba.ss.utils.Constants.*;
 import static java.lang.Math.min;
 
 public class HumanBehavior implements Behavior {
-
-    public static final double MAX_SPEED = 0.4;
 
     private final Person me;
 
@@ -25,7 +23,7 @@ public class HumanBehavior implements Behavior {
         final List<Vector> escapeVectors = new ArrayList<>();
         if (Wall.isColliding(me)) {
 //            escapeVectors.add(Wall.calculateVelocity(me).toVector());
-            return new Velocity(MAX_SPEED, Wall.calculateVelocity(me).toVector().getAngle());
+            return new Velocity(VD_MAX, Wall.calculateVelocity(me).toVector().getAngle());
         }
         for (Person person : entities) {
             if (person == me) {
@@ -38,11 +36,11 @@ public class HumanBehavior implements Behavior {
             }
         }
         if (!escapeVectors.isEmpty()) {
-            me.setRadius(Person.MIN_RADIUS);
+            me.setRadius(MIN_RADIUS);
             final Vector escapeVector = Vector.sum(escapeVectors);
-            return new Velocity(MAX_SPEED, escapeVector.getAngle());
+            return new Velocity(VD_MAX, escapeVector.getAngle());
         }
-        me.setRadius(min(me.getRadius() + Simulator.DELTA_R, Person.MAX_RADIUS));
+        me.setRadius(min(me.getRadius() + Simulator.DELTA_R, MAX_RADIUS));
 
         final List<Person> zombies = entities.stream()
                 .filter(p -> p.getState() == PersonState.ZOMBIE || p.getState() == PersonState.TRANSITIONING)
@@ -57,7 +55,7 @@ public class HumanBehavior implements Behavior {
         });
         directions.forEach(v -> v.rotate(Math.PI));
         final Vector direction = Vector.sum(directions);
-        final double speed = MAX_SPEED * Math.pow((me.getRadius() - Person.MIN_RADIUS)/(Person.MAX_RADIUS - Person.MIN_RADIUS), BETA);
+        final double speed = VD_MAX * Math.pow((me.getRadius() - MIN_RADIUS)/(MAX_RADIUS - MIN_RADIUS), BETA);
         return new Velocity(speed, direction.getAngle());
     }
 
