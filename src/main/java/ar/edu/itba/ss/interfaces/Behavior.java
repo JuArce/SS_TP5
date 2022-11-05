@@ -12,4 +12,10 @@ public interface Behavior {
     boolean isReached();
 
     void execute();
+
+    double getVWander();
+
+    double getVdMax();
+
+    double getVE();
 }

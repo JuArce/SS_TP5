@@ -7,9 +7,12 @@ import lombok.Setter;
 
 import java.util.List;
 
-import static ar.edu.itba.ss.utils.Constants.MAX_RADIUS;
-
 public class Person implements Movable {
+
+    public static final double MIN_RADIUS = 0.15;
+    public static final double MAX_RADIUS = 0.32;
+    public static double DOV = 4; // Distance of vision
+    public static double FOV = Math.PI + Math.PI / 6; // Field of vision == 210°
 
     @Getter
     private final Vector position;

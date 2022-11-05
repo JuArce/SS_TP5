@@ -1,29 +1,24 @@
 package ar.edu.itba.ss.models.behavior;
 
-import ar.edu.itba.ss.interfaces.Behavior;
 import ar.edu.itba.ss.models.Person;
 import ar.edu.itba.ss.models.PersonState;
+import ar.edu.itba.ss.models.Simulator;
 import ar.edu.itba.ss.models.Velocity;
 
 import java.util.List;
 
-import static ar.edu.itba.ss.utils.Constants.DT;
-
-public class TransitioningBehavior implements Behavior {
+public class TransitioningBehavior extends PersonBehavior {
 
     public static final double DEFAULT_TRANSITION_TIME = 7;
 
     private double counter;
 
-
-    private double dt;
-
-    private Person me;
+    private final double dt;
 
     public TransitioningBehavior(Person me) {
+        super(me, 0, 0, 0);
         this.counter = 0;
-        this.me = me;
-        this.dt = DT;
+        this.dt = Simulator.dt;
     }
 
     @Override

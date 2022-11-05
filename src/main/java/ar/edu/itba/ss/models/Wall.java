@@ -1,7 +1,5 @@
 package ar.edu.itba.ss.models;
 
-import static ar.edu.itba.ss.utils.Constants.VD_MAX;
-
 public class Wall {
 
     private static final double RADIUS = 11;
@@ -14,6 +12,6 @@ public class Wall {
     // Bounce against the wall
     public static Velocity calculateVelocity(Person person) {
         final Vector direction = person.getPosition().directionTo(CENTER);
-        return new Velocity(VD_MAX, direction.getAngle() + Math.PI / 4);
+        return new Velocity(person.getBehavior().getVE(), direction.getAngle() + Math.PI / 4);
     }
 }

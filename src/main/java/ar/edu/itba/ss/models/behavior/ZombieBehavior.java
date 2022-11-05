@@ -7,16 +7,18 @@ import ar.edu.itba.ss.models.Velocity;
 
 import java.util.List;
 
-import static ar.edu.itba.ss.utils.Constants.*;
+import static ar.edu.itba.ss.models.Person.*;
 import static java.lang.Math.min;
 
 public class ZombieBehavior extends PersonBehavior {
 
+    public static final double V_WANDER = 0.3;
+    public static final double VD_MAX = 3;
+
     private Person target;
 
-
     public ZombieBehavior(Person me) {
-        super(me);
+        super(me, V_WANDER, VD_MAX, VD_MAX);
         target = null;
     }
 

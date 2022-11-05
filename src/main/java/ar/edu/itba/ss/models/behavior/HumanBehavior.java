@@ -5,13 +5,17 @@ import ar.edu.itba.ss.models.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ar.edu.itba.ss.utils.Constants.*;
+import static ar.edu.itba.ss.models.Person.MAX_RADIUS;
+import static ar.edu.itba.ss.models.Person.MIN_RADIUS;
 import static java.lang.Math.min;
 
 public class HumanBehavior extends PersonBehavior {
 
+    public static final double V_WANDER = 0.3;
+    public static final double VD_MAX = 3;
+
     public HumanBehavior(Person me) {
-        super(me);
+        super(me, V_WANDER, VD_MAX, VD_MAX);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class HumanBehavior extends PersonBehavior {
         });
         directions.forEach(v -> v.rotate(Math.PI));
         final Vector direction = Vector.sum(directions);
-        final double speed = VD_MAX * Math.pow((me.getRadius() - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS), BETA);
+        final double speed = vdMax * Math.pow((me.getRadius() - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS), Simulator.BETA);
         return new Velocity(speed, direction.getAngle());
     }
 

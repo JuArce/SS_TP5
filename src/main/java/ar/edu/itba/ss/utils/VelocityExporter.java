@@ -42,7 +42,7 @@ public class VelocityExporter implements Exporter {
                             .filter(p -> p.getState() == PersonState.ZOMBIE || p.getState() == PersonState.TRANSITIONING)
                             .count()+ ""
             });
-            t += simulator.getDt();
+            t += Simulator.dt;
         } catch (Exception e) {
             e.printStackTrace(); //TODO: handle exception
         }
