@@ -5,6 +5,7 @@ import ar.edu.itba.ss.models.*;
 import ar.edu.itba.ss.models.behavior.HumanBehavior;
 import ar.edu.itba.ss.utils.CsvExporter;
 import ar.edu.itba.ss.utils.PositionReader;
+import ar.edu.itba.ss.utils.VelocityExporter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,13 +29,16 @@ public class App {
 
         System.out.println("dt: " + dt);
 
-        Exporter exporter = new CsvExporter("", "output.csv");
-        exporter.open();
+        Exporter csvExporter = new CsvExporter("", "output.csv");
+        csvExporter.open();
+        Exporter velocityExporter = new VelocityExporter("", "velocity.csv");
+        velocityExporter.open();
 
-        final Simulator system = new Simulator(entities, dt, beta, tau, exporter);
+        final Simulator system = new Simulator(entities, dt, beta, tau, csvExporter, velocityExporter);
         system.simulate();
 
-        exporter.close();
+        csvExporter.close();
+        velocityExporter.close();
 
     }
 }
