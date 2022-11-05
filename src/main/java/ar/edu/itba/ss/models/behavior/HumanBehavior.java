@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ar.edu.itba.ss.utils.Constants.*;
-import static ar.edu.itba.ss.utils.Random.getRandom;
 import static java.lang.Math.min;
 
 public class HumanBehavior extends PersonBehavior {
@@ -21,7 +20,9 @@ public class HumanBehavior extends PersonBehavior {
         if ((velocity = calculateWallCollisionVelocity()) != null) {
             return velocity;
         }
-        if ((velocity = calculatePersonCollisionVelocity(entities)) != null) {
+        if ((velocity = calculatePersonCollisionVelocity(entities.stream()
+                .filter(p -> p.getState() == PersonState.HUMAN || p.getState() == PersonState.TRANSITIONING)
+                .toList())) != null) {
             me.setNextRadius(MIN_RADIUS);
             return velocity;
         }
@@ -46,7 +47,7 @@ public class HumanBehavior extends PersonBehavior {
         });
         directions.forEach(v -> v.rotate(Math.PI));
         final Vector direction = Vector.sum(directions);
-        final double speed = VD_MAX * Math.pow((me.getRadius() - MIN_RADIUS)/(MAX_RADIUS - MIN_RADIUS), BETA);
+        final double speed = VD_MAX * Math.pow((me.getRadius() - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS), BETA);
         return new Velocity(speed, direction.getAngle());
     }
 
