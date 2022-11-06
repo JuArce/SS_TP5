@@ -13,7 +13,7 @@ import static java.lang.Math.min;
 public class ZombieBehavior extends PersonBehavior {
 
     public static final double V_WANDER = 0.3;
-    public static final double VD_MAX = 3;
+    public static double VD_MAX = 3;
 
     private Person target;
 
