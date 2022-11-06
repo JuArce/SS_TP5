@@ -18,7 +18,7 @@ public class MultiNhApp {
     public static void main(String[] args) {
         List<Integer> humansQty = List.of(2, 10, 40, 80, 140, 200, 260, 320);
 
-        humansQty.forEach(hQty -> {
+        humansQty.stream().parallel().forEach(hQty -> {
             final List<Vector> positions = PositionReader.readPositions(String.format("src/main/resources/input/positions_%s.txt", hQty));
             final List<Person> entities = positions.stream().map(p -> new Person(p, new Velocity(HumanBehavior.V_WANDER, getRandom(0, 2 * Math.PI)), PersonState.HUMAN, MAX_RADIUS)).collect(Collectors.toList());
             entities.add(new Person(new Vector(0, 0), new Velocity(HumanBehavior.V_WANDER, getRandom(0, 2 * Math.PI)), PersonState.ZOMBIE,  MAX_RADIUS));
@@ -40,7 +40,7 @@ public class MultiNhApp {
 
             csvExporter.close();
             velocityExporter.close();
-            System.out.println("Simulation finished");
+            System.out.println("Simulation with " + hQty + " humans finished");
 
         });
     }

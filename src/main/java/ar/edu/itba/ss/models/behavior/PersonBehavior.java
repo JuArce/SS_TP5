@@ -91,18 +91,19 @@ public abstract class PersonBehavior implements Behavior {
     }
 
     public Velocity calculateWanderVelocity() {
-        return new Velocity(vWander, me.getVelocity().getAngle() + getRandom(- Math.PI / 6, Math.PI / 6));
+        return new Velocity(vWander, me.getVelocity().getAngle() + getRandom(- Math.PI / 36, Math.PI / 36));
     }
 
     public double getWallCorrection(Velocity v, Vector nearWallPoint) {
-//        return Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
-        final double angle = v.getAngle();
-        if ((angle > 0 && angle < Math.PI / 2) || (angle < 0 && angle > -Math.PI / 2)) { // Primer y cuarto cuadrante ⇒ resto un ángulo
-            return + Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
-        } else {
-            return - Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
-        }
+        return + Math.PI / (2 * me.getPosition().distanceTo(nearWallPoint));
 
+//        final double angle = v.getAngle();
+//        if ((angle > 0 && angle < Math.PI / 2)
+//                || (angle < 0 && angle > -Math.PI / 2)) { // Primer y cuarto cuadrante ⇒ resto un ángulo
+//            return + Math.PI / (2 * me.getPosition().distanceTo(nearWallPoint));
+//        } else {
+//            return + Math.PI / (2 * me.getPosition().distanceTo(nearWallPoint));
+//        }
     }
 
 }

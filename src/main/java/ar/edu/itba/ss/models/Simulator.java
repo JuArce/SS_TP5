@@ -21,7 +21,7 @@ public class Simulator {
 
     public Simulator(List<Person> entities, double dt, double beta, double tau, Exporter csvExporter, Exporter velocityExporter) {
         this.entities = entities;
-        this.iterations = 1000;
+        this.iterations = 10000;
 
         this.csvExporter = csvExporter;
         this.velocityExporter = velocityExporter;
@@ -33,7 +33,9 @@ public class Simulator {
 
     public void simulate() {
         for (int i = 0; i < iterations; i++) {
-            csvExporter.export(this);
+            if (i % 5 == 0) {
+                csvExporter.export(this);
+            }
             velocityExporter.export(this);
             entities.forEach(e -> e.calculateVelocity(entities));
             entities.forEach(Person::execute);
