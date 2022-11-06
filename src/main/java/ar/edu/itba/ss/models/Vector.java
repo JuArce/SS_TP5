@@ -31,10 +31,22 @@ public class Vector {
     }
 
     public double angleTo(Vector other) {
-        return Math.acos(this.dotProduct(other) / (this.getModule() * other.getModule()));
+        if (Double.compare(this.getModule(), 0) == 0 || Double.compare(other.getModule(), 0) == 0) {
+            return 0;
+        }
+        double arg = this.dotProduct(other) / (this.getModule() * other.getModule());
+        if (arg > 1) {
+            arg = 1;
+        } else if (arg < -1) {
+            arg = -1;
+        }
+        return Math.acos(arg);
     }
 
     public Vector directionTo(Vector other) {
+        if (this.equals(other)) {
+            return new Vector(0, 0);
+        }
         final double x = other.x - this.x;
         final double y = other.y - this.y;
         return new Vector(x, y).normalize();

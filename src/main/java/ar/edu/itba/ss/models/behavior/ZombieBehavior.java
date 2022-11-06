@@ -52,9 +52,9 @@ public class ZombieBehavior extends PersonBehavior {
         }
         me.setNextRadius(min(me.getRadius() + Simulator.DELTA_R, MAX_RADIUS));
 
-        velocity = calculateTargetVelocity(entities);
+        return calculateTargetVelocity(entities);
 
-        return correctVelocity(velocity, entities);
+//        return correctVelocity(velocity, entities);
     }
 
     @Override

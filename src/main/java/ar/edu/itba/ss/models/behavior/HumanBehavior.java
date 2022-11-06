@@ -22,6 +22,7 @@ public class HumanBehavior extends PersonBehavior {
     public Velocity calculateVelocity(List<Person> entities) {
         Velocity velocity;
         if ((velocity = calculateWallCollisionVelocity()) != null) {
+            me.setNextRadius(MIN_RADIUS);
             return velocity;
         }
         if ((velocity = calculatePersonCollisionVelocity(entities.stream()
@@ -30,11 +31,10 @@ public class HumanBehavior extends PersonBehavior {
             me.setNextRadius(MIN_RADIUS);
             return velocity;
         }
-        me.setNextRadius(min(me.getRadius() + Simulator.DELTA_R, MAX_RADIUS));
 
+        me.setNextRadius(min(me.getRadius() + Simulator.DELTA_R, MAX_RADIUS));
         velocity = calculateEscapeVelocity(entities);
-        velocity = correctVelocity(velocity, entities);
-        return velocity;
+        return correctVelocity(velocity, entities);
     }
 
     private Velocity calculateEscapeVelocity(List<Person> entities) {
@@ -51,7 +51,7 @@ public class HumanBehavior extends PersonBehavior {
         });
         directions.forEach(v -> v.rotate(Math.PI));
         final Vector direction = Vector.sum(directions);
-        final double speed = vdMax * Math.pow((me.getRadius() - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS), Simulator.BETA);
+        final double speed = vdMax * Math.pow((me.getNextRadius() - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS), Simulator.BETA);
         return new Velocity(speed, direction.getAngle());
     }
 
