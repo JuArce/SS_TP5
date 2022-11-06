@@ -14,7 +14,7 @@ import static ar.edu.itba.ss.utils.Random.getRandom;
 
 public abstract class PersonBehavior implements Behavior {
 
-    public static double A = -0.05; // CMP correction
+    public static double A = -0.1; // CMP correction
     public static double B = 4; // CMP correction
 
     protected final Person me;
@@ -83,7 +83,7 @@ public abstract class PersonBehavior implements Behavior {
          * Avoid wall
          */
         Vector nearWallPoint = Wall.getNearPoint(me);
-        if (me.getPosition().distanceTo(nearWallPoint) < Person.DOV && v.toVector().angleTo(me.getPosition().directionTo(nearWallPoint)) <= Person.FOV / 2) {
+        if (me.getPosition().distanceTo(nearWallPoint) < Person.DOV && v.toVector().angleTo(me.getPosition().directionTo(nearWallPoint)) <= Math.PI / 2) {
             vCorrected.setAngle(v.getAngle() + getWallCorrection(vCorrected, nearWallPoint));
         }
 
@@ -97,10 +97,10 @@ public abstract class PersonBehavior implements Behavior {
     public double getWallCorrection(Velocity v, Vector nearWallPoint) {
 //        return Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
         final double angle = v.getAngle();
-        if ((angle > 0 && angle < Math.PI / 2) || (angle < -Math.PI / 2 && angle > -Math.PI)) { // Primer y cuarto cuadrante ⇒ resto un ángulo
-            return - Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
+        if ((angle > 0 && angle < Math.PI / 2) || (angle < 0 && angle > -Math.PI / 2)) { // Primer y cuarto cuadrante ⇒ resto un ángulo
+            return + Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
         } else {
-            return Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
+            return - Math.PI / (4 * me.getPosition().distanceTo(nearWallPoint));
         }
 
     }

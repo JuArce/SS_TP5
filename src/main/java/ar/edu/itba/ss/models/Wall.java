@@ -14,7 +14,7 @@ public class Wall {
     // Bounce against the wall
     public static Velocity calculateVelocity(Person person) {
         final Vector direction = person.getPosition().directionTo(CENTER);
-        return new Velocity(person.getBehavior().getVE(), direction.getAngle() + Math.PI / 4);
+        return new Velocity(person.getBehavior().getVE(), direction.getAngle());
     }
 
     public static Vector getNearPoint(Person me) {
