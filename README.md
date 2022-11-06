@@ -11,14 +11,17 @@ Implementación Trabajo Práctico Número 5: Dinámica Peatonal - _Targets_ que 
 ## Dependencias
 
 * [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+* [Maven](https://maven.apache.org/download.cgi)
+* [Python 3.9](https://www.python.org/downloads/)
+  * [Matplotlib](https://matplotlib.org/stable/users/installing.html)
 
 ## Diagramas de Clases
 
-(![UML](assets/uml.png)
+![UML](assets/uml.png)
 
 ## Diagrama de flujo
 
-(![Diagrama de flujo](assets/flow-diagram.png)
+![Diagrama de flujo](assets/flow-diagram.png)
 
 ## Presentación
 
