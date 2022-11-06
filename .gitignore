@@ -5,3 +5,6 @@ target
 *.txt
 
 .DS_Store
+data_analysis/Pipfile
+
+data_analysis/Pipfile.lock
