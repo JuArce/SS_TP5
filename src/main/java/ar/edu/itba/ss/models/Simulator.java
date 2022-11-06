@@ -35,8 +35,8 @@ public class Simulator {
         for (int i = 0; i < iterations; i++) {
             if (i % 5 == 0) {
                 csvExporter.export(this);
+                velocityExporter.export(this);
             }
-            velocityExporter.export(this);
             entities.forEach(e -> e.calculateVelocity(entities));
             entities.forEach(Person::execute);
             entities.forEach(e-> e.move(dt));

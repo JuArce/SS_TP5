@@ -36,11 +36,13 @@ public class VelocityExporter implements Exporter {
     @Override
     public void export(Simulator simulator) {
         try {
+            final double npz = simulator.getEntities().stream()
+                    .filter(e -> e.getState() == PersonState.ZOMBIE || e.getState() == PersonState.TRANSITIONING)
+                    .count();
+            final double nh = simulator.getEntities().size();
             csvWriterAppender.writeNext(new String[]{
                     t + "",
-                    simulator.getEntities().stream()
-                            .filter(p -> p.getState() == PersonState.ZOMBIE || p.getState() == PersonState.TRANSITIONING)
-                            .count()+ ""
+                    npz / nh + ""
             });
             t += Simulator.dt;
         } catch (Exception e) {
