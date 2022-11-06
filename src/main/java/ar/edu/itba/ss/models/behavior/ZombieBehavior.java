@@ -8,12 +8,14 @@ import ar.edu.itba.ss.models.Velocity;
 import java.util.List;
 
 import static ar.edu.itba.ss.models.Person.*;
+import static ar.edu.itba.ss.utils.Random.getRandom;
 import static java.lang.Math.min;
 
 public class ZombieBehavior extends PersonBehavior {
 
     public static final double V_WANDER = 0.3;
     public static double VD_MAX = 3;
+    public static double TRANSITIONING_PROB = 1;
 
     private Person target;
 
@@ -22,7 +24,7 @@ public class ZombieBehavior extends PersonBehavior {
         target = null;
     }
 
-    private Velocity calculateTargetVelocity(List< Person> entities) {
+    private Velocity calculateTargetVelocity(List<Person> entities) {
         this.target = entities.stream()
                 .filter(person -> person.getState() == PersonState.HUMAN)
                 .min((person1, person2) -> {
@@ -68,8 +70,10 @@ public class ZombieBehavior extends PersonBehavior {
     @Override
     public void execute() {
         if (isReached()) {
-            if (target.getState() == PersonState.HUMAN) {
-                target.changeState(PersonState.TRANSITIONING);
+            if (getRandom(0, 1) < TRANSITIONING_PROB) {
+                if (target.getState() == PersonState.HUMAN) {
+                    target.changeState(PersonState.TRANSITIONING);
+                }
             }
             if (me.getState() == PersonState.ZOMBIE) {
                 me.changeState(PersonState.TRANSITIONING);
