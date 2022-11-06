@@ -13,7 +13,6 @@ public class VelocityExporter implements Exporter {
 
     private final String fullPath;
     private CSVWriter csvWriterAppender;
-    private double t = 0;
 
     public VelocityExporter(String path, String filename) {
         this.fullPath = baseFilename + path + filename;
@@ -35,11 +34,11 @@ public class VelocityExporter implements Exporter {
     @Override
     public void export(Simulator simulator) {
         try {
+            final double t = Simulator.dt * simulator.getI();
             csvWriterAppender.writeNext(new String[]{
                     t + "",
                     simulator.getProportion() + ""
             });
-            t += (Simulator.dt * 5);
         } catch (Exception e) {
             e.printStackTrace(); //TODO: handle exception
         }

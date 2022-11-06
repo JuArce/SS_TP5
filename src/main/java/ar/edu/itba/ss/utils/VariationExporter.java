@@ -14,8 +14,7 @@ public class VariationExporter implements Exporter {
 
     private final String fullPath;
     private CSVWriter csvWriterAppender;
-    private double t = 0;
-    private int lastZombies = 0;
+    private int lastZombies = 1;
 
     public VariationExporter(String path, String filename) {
         this.fullPath = baseFilename + path + filename;
@@ -41,13 +40,13 @@ public class VariationExporter implements Exporter {
                     .filter(e -> e.getState() == PersonState.ZOMBIE || e.getState() == PersonState.TRANSITIONING)
                     .count();
             final int variation = currentZombies - lastZombies;
+            final double t = Simulator.dt * simulator.getI();
 
             csvWriterAppender.writeNext(new String[]{
                     t + "",
                     variation + ""
             });
             lastZombies = currentZombies;
-            t += (Simulator.dt * 100);
         } catch (Exception e) {
             e.printStackTrace(); //TODO: handle exception
         }

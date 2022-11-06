@@ -11,6 +11,8 @@ public class Simulator {
     private final List<Person> entities;
 
     private final int iterations;
+    @Getter
+    private int i = 0;
 
     private final Exporter csvExporter;
     private final Exporter velocityExporter;
@@ -34,7 +36,7 @@ public class Simulator {
     }
 
     public void simulate() {
-        for (int i = 0; i < iterations; i++) {
+        for (i = 0; i < iterations; i++) {
             if (i % 5 == 0) {
                 csvExporter.export(this);
                 velocityExporter.export(this);
@@ -45,11 +47,14 @@ public class Simulator {
             entities.forEach(e -> e.calculateVelocity(entities));
             entities.forEach(Person::execute);
             entities.forEach(e-> e.move(dt));
-            if (Double.compare(getProportion(), 1) == 0) {
+            if (getZombies() == entities.size()) {
                 System.out.println("All zombies");
                 break;
             }
         }
+        csvExporter.export(this);
+        velocityExporter.export(this);
+        variationExporter.export(this);
     }
 
     public double getProportion() {
@@ -58,6 +63,12 @@ public class Simulator {
                 .count();
         final double nh = entities.size();
         return (npz / nh);
+    }
+
+    public int getZombies() {
+        return (int) entities.stream()
+                .filter(e -> e.getState() == PersonState.ZOMBIE)
+                .count();
     }
 
 }
