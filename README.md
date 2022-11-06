@@ -25,4 +25,4 @@ Implementación Trabajo Práctico Número 5: Dinámica Peatonal - _Targets_ que 
 
 ## Presentación
 
-La presentación se encuentra en el directorio `/docs` con el nombre [SdS_TP5_2022Q2G07_Presentación](docs/SdS_TP5_2022Q2G07_Presentación.pdf).
+La presentación se encuentra en el directorio `/docs` con el nombre [SdS_TP5_2022Q2G07_Presentación](docs/SdS_TP5_2022Q2G07_Presentación.pdf).
