@@ -23,7 +23,7 @@ public class MultiNhApp {
             final List<Person> entities = positions.stream().map(p -> new Person(p, new Velocity(HumanBehavior.V_WANDER, getRandom(0, 2 * Math.PI)), PersonState.HUMAN, MAX_RADIUS)).collect(Collectors.toList());
             entities.add(new Person(new Vector(0, 0), new Velocity(HumanBehavior.V_WANDER, getRandom(0, 2 * Math.PI)), PersonState.ZOMBIE,  MAX_RADIUS));
 
-            final double dt = Person.MIN_RADIUS / 4 * ZombieBehavior.VD_MAX;
+            final double dt = Person.MIN_RADIUS / (2 * ZombieBehavior.VD_MAX);
             final double beta = 0.9;
             final double tau = 0.5;
 
