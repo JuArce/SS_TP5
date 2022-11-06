@@ -6,6 +6,7 @@ import ar.edu.itba.ss.models.behavior.HumanBehavior;
 import ar.edu.itba.ss.models.behavior.ZombieBehavior;
 import ar.edu.itba.ss.utils.CsvExporter;
 import ar.edu.itba.ss.utils.PositionReader;
+import ar.edu.itba.ss.utils.VariationExporter;
 import ar.edu.itba.ss.utils.VelocityExporter;
 
 import java.util.List;
@@ -37,12 +38,15 @@ public class MultiNhApp {
                 csvExporter.open();
                 Exporter velocityExporter = new VelocityExporter("output/velocity/diffNh/", String.format("velocity_%s_%d.csv", hQty, i));
                 velocityExporter.open();
+                Exporter variationExporter = new VariationExporter("output/variation/diffNh/", String.format("variation_%s_%d.csv", hQty, i));
+                variationExporter.open();
 
-                final Simulator system = new Simulator(entities, dt, beta, tau, csvExporter, velocityExporter);
+                final Simulator system = new Simulator(entities, dt, beta, tau, csvExporter, velocityExporter, variationExporter);
                 system.simulate();
 
                 csvExporter.close();
                 velocityExporter.close();
+                variationExporter.close();
                 System.out.println("Simulation " + i + " with " + hQty + " humans finished");
             });
         });

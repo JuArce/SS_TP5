@@ -6,6 +6,7 @@ import ar.edu.itba.ss.models.behavior.HumanBehavior;
 import ar.edu.itba.ss.models.behavior.ZombieBehavior;
 import ar.edu.itba.ss.utils.CsvExporter;
 import ar.edu.itba.ss.utils.PositionReader;
+import ar.edu.itba.ss.utils.VariationExporter;
 import ar.edu.itba.ss.utils.VelocityExporter;
 
 import java.util.List;
@@ -42,12 +43,15 @@ public class MultiVzApp {
                 csvExporter.open();
                 Exporter velocityExporter = new VelocityExporter("output/velocity/diffVz/", String.format(Locale.ROOT, "velocity_%s_%d_vz_%.1f.csv", hQty, i, vz));
                 velocityExporter.open();
+                Exporter variationExporter = new VariationExporter("output/variation/diffVz/", String.format(Locale.ROOT, "variation_%s_%d_vz_%.1f.csv", hQty, i, vz));
+                variationExporter.open();
 
-                final Simulator system = new Simulator(entities, dt, beta, tau, csvExporter, velocityExporter);
+                final Simulator system = new Simulator(entities, dt, beta, tau, csvExporter, velocityExporter, variationExporter);
                 system.simulate();
 
                 csvExporter.close();
                 velocityExporter.close();
+                variationExporter.close();
                 System.out.println("Simulation " + i + " with " + hQty + " humans and vz " + vz + " finished");
             });
         });
